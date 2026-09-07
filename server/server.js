@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 dotenv.config(); //  load environment variables from a .env file into the global process.env object
 import connectDB from "./config/mongodb.js";
+import {route} from './routes\/authRoute.js';
 const port = process.env.PORT || 4700;
 const app = express();
 connectDB();
@@ -23,6 +24,7 @@ app.use(cookieParser()); // Reads cookies from incoming requests and populates '
 app.get("/", (req, res) => {
   res.send("hii from server");
 });
+app.get('/api',route);
 //
 app.listen(port, () => {
   console.log(`server is running on https://www.localhost:${port}`);
