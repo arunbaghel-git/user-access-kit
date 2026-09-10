@@ -1,10 +1,11 @@
 import userModel from "../models/users.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import transporter from "../config/nodeMailer.js";
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
-    res.json({
+    return res.json({
       success: false,
       message: "missing fields details",
     });
@@ -13,7 +14,7 @@ export const registerUser = async (req, res) => {
     // Check if user already exists
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
-      res.json({
+      return res.json({
         success: false,
         message: "user already exist",
       });
@@ -32,10 +33,19 @@ export const registerUser = async (req, res) => {
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
+    // send a message
+
+    const mailOptions = {
+      from: process.env.SENDER_EMAIL,
+      to: email,
+      subject: "test email",
+      text: `hello nodemailer from ${email}`,
+    };
+    await transporter.sendMail(mailOptions);
+
     return res.json({
       success: true,
       message: "user register successfully",
-      newUser, // for test in postman only return full newUser object
     });
   } catch (err) {
     return res.json({
