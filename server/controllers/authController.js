@@ -130,3 +130,22 @@ export const logoutUser = async (req, res) => {
     });
   }
 };
+
+export const sendVerifyOtp = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const otp = Math.floor(1000 + Math.random() * 9000);
+    const sendOtpDetail = {
+      from: process.env.SENDER_EMAIL,
+      to: email,
+      subject: "verify otp",
+      text: `this is your ${otp} to verify your email`,
+    };
+    await transporter.sendMail(sendOtpDetail);
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message
+    });
+  }
+};
