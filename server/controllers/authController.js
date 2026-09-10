@@ -58,7 +58,7 @@ export const loginUser = async (req, res) => {
     if (!existingUser) {
       return res.json({
         success: false,
-        message: "email is invalid",
+        message: "invalid credentials",
       });
     }
     const isPasswordMatch = await bcrypt.compare(
@@ -87,6 +87,31 @@ export const loginUser = async (req, res) => {
     return res.json({
       success: true,
       message: "user login successfully",
+    });
+  } catch (err) {
+    return res.json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+// Add rate limiting to login to slow brute-force attempts.
+// Consider CSRF protection if you're using cross-site cookies, especially with SameSite: "none".
+// Validate/sanitize input rather than trusting req.body.
+// Don't return sensitive user/database information in errors.
+// Cookie settings should be reviewed based on whether frontend/backend are same-site or cross-site.
+// The browser's cookie stores the JWT, and the server verifies that JWT on subsequent protected requests.
+
+export const logoutUser = async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "prouduction" ? "none" : "strict",
+    });
+    return res.json({
+      success: true,
+      message: "user logout successfully",
     });
   } catch (err) {
     return res.json({

@@ -1,7 +1,8 @@
 import express from 'express';
-import { registerUser,loginUser } from "../controllers/authController.js";
+import { registerUser,loginUser, logoutUser } from "../controllers/authController.js";
 
 export const route = express.Router();
 
 route.post('/register',registerUser);
-route.get('/login',loginUser);
+route.post('/login',loginUser);
+route.post('/logout',logoutUser);
