@@ -9,7 +9,7 @@ import userRoute from "./routes/userRoute.js";
 const port = process.env.PORT || 4700;
 const app = express();
 connectDB();
-// middleware
+// middleware 
 app.use(
   cors({
     credentials: true,
