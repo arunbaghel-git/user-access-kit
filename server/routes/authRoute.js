@@ -13,7 +13,7 @@ import userAuth from "../middleware/userAuth.js";
 
 export const route = express.Router();
 
-route.post("/register", registerUser);
+route.post("/register", registerUser); 
 route.post("/login", loginUser);
 route.post("/logout", logoutUser);
 route.post("/send-verify-otp", userAuth, sendVerifyOtp);

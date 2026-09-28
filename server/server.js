@@ -23,7 +23,7 @@ app.use(cookieParser()); // Reads cookies from incoming requests and populates '
 
 //
 app.get("/", (req, res) => {
-  res.send("hii from server");
+  res.send("hii from server"); 
 });
 app.use('/api',route);
 app.use("/api/user",userRoute);

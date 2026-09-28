@@ -1,0 +1,10 @@
+.nav-bar{
+    background-color: var(--surface);
+    min-height: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .right{
+            gap: 10px;
+    justify-content: flex-end;
+    }
+}
