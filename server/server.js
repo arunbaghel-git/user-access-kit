@@ -29,5 +29,5 @@ app.use('/api',route);
 app.use("/api/user",userRoute);
 //
 app.listen(port, () => {
-  console.log(`server is running on https://www.localhost:${port}`);
+  console.log(`server is running on http://localhost:${port}`);
 });

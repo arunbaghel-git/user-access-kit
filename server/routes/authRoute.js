@@ -18,6 +18,6 @@ route.post("/login", loginUser);
 route.post("/logout", logoutUser);
 route.post("/send-verify-otp", userAuth, sendVerifyOtp);
 route.post("/verify-account", userAuth, verifyEmail);
-route.post("/is-auth", userAuth, isAuthenticated);
+route.get("/is-auth", userAuth, isAuthenticated);
 route.post("/send-password-reset-otp", passwordResetOtp);
 route.post("/password-reset", resetPassword);
